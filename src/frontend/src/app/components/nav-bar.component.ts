@@ -14,7 +14,7 @@ import { RouterLink } from '@angular/router';
       <div class="flex-none">
         <ul class="menu menu-horizontal px-1">
           <li><a routerLink="demos">Demos</a></li>
-          <li><a routerLink="golfing">Golfing</a></li>
+          <li><a routerLink="banking">Banking</a></li>
         </ul>
       </div>
     </div>
