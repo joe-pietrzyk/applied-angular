@@ -2,8 +2,7 @@ import {
   Component,
   ChangeDetectionStrategy,
   input,
-  EventEmitter,
-  Output,
+  output,
 } from '@angular/core';
 
 @Component({
@@ -13,7 +12,7 @@ import {
   imports: [],
   template: `
     <div>
-      <input #amount type="text" class="input input-bodered" />
+      <input #amount type="number" class="input input-bodered" />
       <button (click)="doTransaction(amount)" class="btn btn-primary">
         {{ buttonLabel() }}
       </button>
@@ -23,7 +22,7 @@ import {
 })
 export class TransactionComponent {
   buttonLabel = input.required<string>();
-  @Output() transactionHappened = new EventEmitter<number>();
+  transactionHappened = output<number>();
 
   doTransaction(amount: HTMLInputElement) {
     this.transactionHappened.emit(amount.valueAsNumber);

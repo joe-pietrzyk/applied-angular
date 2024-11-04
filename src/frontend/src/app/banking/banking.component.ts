@@ -1,5 +1,11 @@
 import { CurrencyPipe } from '@angular/common';
-import { Component, ChangeDetectionStrategy, signal } from '@angular/core';
+import {
+  Component,
+  ChangeDetectionStrategy,
+  signal,
+  computed,
+  effect,
+} from '@angular/core';
 import { TransactionComponent } from './components/transaction.component';
 
 @Component({
@@ -22,6 +28,7 @@ import { TransactionComponent } from './components/transaction.component';
 })
 export class BankingComponent {
   balance = signal(0);
+  warning = signal(false);
 
   doWithdrawal(amount: number) {
     this.balance.update((b) => b - amount);
@@ -29,5 +36,19 @@ export class BankingComponent {
 
   doDeposit(amount: number) {
     this.balance.update((b) => b + amount);
+  }
+
+  atGoldLevel = computed(() => this.balance() >= 1000);
+
+  constructor() {
+    effect(
+      () => {
+        console.log(`The balance is now ${this.balance()}`);
+        if (this.balance() < 0) {
+          this.warning.set(true);
+        }
+      },
+      { allowSignalWrites: true },
+    );
   }
 }
