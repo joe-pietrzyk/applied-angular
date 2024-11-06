@@ -1,11 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { type BankTransaction, type BankStatementApiResponse } from './types';
+import { BankStatementApiResponse, BankTransaction } from './types';
 import { map } from 'rxjs';
 
 @Injectable()
 export class BankingService {
   #http = inject(HttpClient);
+
+  // that I can use to load the data from the api, and give it to my store somehow
+  /// the store needs BankTransactions
 
   loadCurrentStatement() {
     return this.#http
@@ -17,11 +20,11 @@ export class BankingService {
         map((txns) =>
           txns.map((t) => {
             const thingy: BankTransaction = {
-              id: t.ibTxLsn,
+              id: t.ibnTxLsn,
               amount: t.amount,
               date: new Date(t.postedOn).getTime(),
               kind: t.type,
-              newBalance: 99,
+              newBalance: 420.69,
             };
             return thingy;
           }),

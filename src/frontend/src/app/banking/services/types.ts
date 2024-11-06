@@ -8,17 +8,11 @@ export type TimeStamp = number;
 //   newBalance: number;
 // };
 
-// export type Withdrawal = {
-//   id: string;
-//   kind: 'withdrawal';
-//   date: TimeStamp;
-//   amount: number;
-//   newBalance: number;
-// };
+// export type Withdrawal = {};
 
 export type BankTransaction = {
   id: string;
-  kind: string;
+  kind: 'withdrawal' | 'deposit';
   date: TimeStamp;
   amount: number;
   newBalance: number;
@@ -30,7 +24,7 @@ export type BankStatementApiResponse = {
 };
 
 export type BankStateApiTransactionResponse = {
-  ibTxLsn: string;
+  ibnTxLsn: string;
   amount: number;
   type: 'deposit' | 'withdrawal';
   postedOn: string;
